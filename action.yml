@@ -1,0 +1,55 @@
+name: 'Lints Container Image with Dockle'
+description: 'Lints container image with dockle for vulnerabilities'
+author: 'nemotoy'
+inputs:
+  image:
+    description: 'image name'
+    required: true
+  format:
+    description: 'result format (list, json, sarif)'
+    required: false
+    default: ''
+  output:
+    description: 'output file name'
+    required: false
+    default: ''
+  exit-code:
+    description: 'exit code when alerts were found'
+    required: false
+    default: '0'
+  exit-level:
+    description: 'alert level (INFO, WARN, FATAL)'
+    required: false
+    default: 'WARN'
+  debug:
+    description: 'debug mode'
+    required: false
+    default: 'false'
+  quiet:
+    description: 'suppress log output'
+    required: false
+    default: 'false'
+  no-color:
+    description: 'suppress log output [$NO_COLOR]'
+    required: false
+    default: 'false'
+  timeout:
+    description: 'docker timeout. e.g) 5s, 5m... (default: 1m30s)'
+    required: false
+    default: '1m30s'
+runs:
+  using: 'docker'
+  image: 'docker://goodwithtech/dockle:v0.4.2'
+  args:
+    - '-f=${{ inputs.format }}'
+    - '-o=${{ inputs.output }}'
+    - '-c=${{ inputs.exit-code }}'
+    - '-l=${{ inputs.exit-level }}'
+    - '-d=${{ inputs.debug }}'
+    - '-q=${{ inputs.quiet }}'
+    - '--no-color=${{ inputs.no-color }}'
+    - '-t=${{ inputs.timeout }}'
+    - '${{ inputs.image }}'
+branding:
+  icon: 'shield'  
+  color: 'gray-dark'
