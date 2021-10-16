@@ -39,7 +39,7 @@ inputs:
     default: '1m30s'
 runs:
   using: 'docker'
-  image: 'docker://goodwithtech/dockle:v0.4.2'
+  image: 'docker://goodwithtech/dockle:v0.4.3'
   args:
     - '-f=${{ inputs.format }}'
     - '-o=${{ inputs.output }}'
